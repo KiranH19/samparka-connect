@@ -1,0 +1,6 @@
+{
+  "name": "Samparka - Opportunities Around You",
+  "description": "Local job discovery platform connecting job seekers and local businesses in Hubli–Dharwad and Karnataka.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

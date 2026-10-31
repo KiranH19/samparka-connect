@@ -1,0 +1,172 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile holding role and contact information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "fullName": { "type": "string", "maxLength": 100 },
+        "userType": { "type": "string", "enum": ["job_seeker", "employer", "admin"] },
+        "city": { "type": "string", "maxLength": 80 },
+        "locality": { "type": "string", "maxLength": 100 },
+        "phoneNumber": { "type": "string", "maxLength": 20 },
+        "skills": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 20
+        },
+        "resumeUrl": { "type": "string", "maxLength": 500 },
+        "isAdmin": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "email", "fullName", "userType", "createdAt", "updatedAt"]
+    },
+    "Business": {
+      "title": "Business",
+      "description": "Local shop, cafe, office, or enterprise in Hubli-Dharwad",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "businessName": { "type": "string", "maxLength": 120 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "category": { "type": "string", "maxLength": 60 },
+        "logoUrl": { "type": "string", "maxLength": 500 },
+        "city": { "type": "string", "maxLength": 80 },
+        "locality": { "type": "string", "maxLength": 100 },
+        "address": { "type": "string", "maxLength": 250 },
+        "contactPhone": { "type": "string", "maxLength": 20 },
+        "contactEmail": { "type": "string", "format": "email" },
+        "verificationStatus": { "type": "string", "enum": ["pending", "verified", "rejected"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "ownerId", "businessName", "verificationStatus", "createdAt", "updatedAt"]
+    },
+    "Job": {
+      "title": "Job",
+      "description": "Job opening posted by a local business",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "businessId": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "title": { "type": "string", "maxLength": 150 },
+        "slug": { "type": "string", "maxLength": 180 },
+        "description": { "type": "string", "maxLength": 5000 },
+        "category": { "type": "string", "maxLength": 60 },
+        "employmentType": { "type": "string", "enum": ["full_time", "part_time", "internship", "contract", "daily_wage"] },
+        "experienceLevel": { "type": "string", "enum": ["no_experience_required", "entry", "intermediate", "expert"] },
+        "salaryMin": { "type": "number" },
+        "salaryMax": { "type": "number" },
+        "salaryPeriod": { "type": "string", "enum": ["hour", "day", "week", "month", "year"] },
+        "city": { "type": "string", "maxLength": 80 },
+        "locality": { "type": "string", "maxLength": 100 },
+        "workSchedule": { "type": "string", "maxLength": 120 },
+        "skills": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 15
+        },
+        "openings": { "type": "integer" },
+        "status": { "type": "string", "enum": ["draft", "published", "closed", "archived"] },
+        "isRemote": { "type": "boolean" },
+        "applicationsCount": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "publishedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "businessId", "createdBy", "title", "category", "employmentType", "status", "createdAt", "updatedAt"]
+    },
+    "Application": {
+      "title": "Application",
+      "description": "Job application submitted by a candidate",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "jobId": { "type": "string" },
+        "applicantId": { "type": "string" },
+        "applicantName": { "type": "string", "maxLength": 100 },
+        "applicantEmail": { "type": "string", "format": "email" },
+        "applicantPhone": { "type": "string", "maxLength": 20 },
+        "coverLetter": { "type": "string", "maxLength": 3000 },
+        "resumePath": { "type": "string", "maxLength": 500 },
+        "status": { "type": "string", "enum": ["applied", "reviewed", "shortlisted", "rejected", "hired"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "jobId", "applicantId", "applicantName", "applicantEmail", "status", "createdAt", "updatedAt"]
+    },
+    "SavedJob": {
+      "title": "SavedJob",
+      "description": "Saved/bookmarked job opening by a candidate",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "jobId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "jobId", "createdAt"]
+    },
+    "JobReport": {
+      "title": "JobReport",
+      "description": "Flag or report on a job listing for safety moderation",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "jobId": { "type": "string" },
+        "reporterId": { "type": "string" },
+        "reason": { "type": "string", "maxLength": 200 },
+        "details": { "type": "string", "maxLength": 1000 },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "dismissed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "jobId", "reason", "status", "createdAt"]
+    },
+    "AdminRecord": {
+      "title": "AdminRecord",
+      "description": "Admin access token or registration record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "email", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/profiles/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles keyed by auth UID"
+    },
+    "/businesses/{businessId}": {
+      "schema": "Business",
+      "description": "Local business listings keyed by businessId"
+    },
+    "/jobs/{jobId}": {
+      "schema": "Job",
+      "description": "Job listings posted by employers"
+    },
+    "/applications/{applicationId}": {
+      "schema": "Application",
+      "description": "Job applications submitted by candidates"
+    },
+    "/saved_jobs/{savedJobId}": {
+      "schema": "SavedJob",
+      "description": "Saved jobs indexed for candidates"
+    },
+    "/job_reports/{reportId}": {
+      "schema": "JobReport",
+      "description": "Job reports submitted for administrative review"
+    },
+    "/admins/{userId}": {
+      "schema": "AdminRecord",
+      "description": "Admin users list defining authorized admins"
+    }
+  }
+}

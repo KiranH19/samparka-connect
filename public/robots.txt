@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Allow: /jobs
+Allow: /jobs/*
+
+# Disallow private user accounts and dashboards from crawler indexing
+Disallow: /dashboard
+Disallow: /employer
+Disallow: /employer/*
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /login
+Disallow: /signup
+Disallow: /forgot-password
+Disallow: /reset-password
+
+Sitemap: https://samparka.in/sitemap.xml
